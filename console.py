@@ -13,6 +13,7 @@ from models.review import Review
 from datetime import datetime
 import uuid
 
+
 class HBNBCommand(cmd.Cmd):
     """ Contains the functionality for the HBNB console"""
 
@@ -119,15 +120,15 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-        
+
         args = arg.split()
         class_name = args[0]
         params = {}
-        
+
         if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        
+
         for param in args[1:]:
             if '=' not in param:
                 continue
