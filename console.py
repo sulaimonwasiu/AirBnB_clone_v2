@@ -10,7 +10,8 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-
+from datetime import datetime
+import uuid
 
 class HBNBCommand(cmd.Cmd):
     """ Contains the functionality for the HBNB console"""
@@ -113,18 +114,51 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-    def do_create(self, args):
+    def do_create(self, arg):
         """ Create an object of any class"""
-        if not args:
+        if not arg:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        
+        args = arg.split()
+        class_name = args[0]
+        params = {}
+        
+        if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
-        storage.save()
-        print(new_instance.id)
-        storage.save()
+        
+        for param in args[1:]:
+            if '=' not in param:
+                continue
+
+            key, value = param.split('=', 1)
+            key = key.replace('_', ' ')
+
+            # Handle string values
+            if value.startswith('"') and value.endswith('"'):
+                value = value[1:-1].replace('\\"', '"')
+
+            # Handle float values
+            elif '.' in value:
+                try:
+                    value = float(value)
+                except ValueError:
+                    continue
+
+            # Handle integer values
+            else:
+                try:
+                    value = int(value)
+                except ValueError:
+                    continue
+
+            params[key] = value
+
+        new_dict = params
+        instance = HBNBCommand.classes[args[0]](**new_dict)
+        instance.save()
+        print(instance.id)
 
     def help_create(self):
         """ Help information for the create method """
