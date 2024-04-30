@@ -160,6 +160,7 @@ class HBNBCommand(cmd.Cmd):
         instance = HBNBCommand.classes[args[0]](**new_dict)
         instance.save()
         print(instance.id)
+        return
 
     def help_create(self):
         """ Help information for the create method """
