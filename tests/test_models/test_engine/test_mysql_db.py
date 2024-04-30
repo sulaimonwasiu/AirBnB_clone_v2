@@ -32,8 +32,8 @@ class MyDatabaseTestCase(unittest.TestCase):
 
     def test_something(self):
         # Perform a test using the database connection
-        #query = "SELECT * FROM my_table"
-        #self.cursor.execute(query)
-        #result = self.cursor.fetchall()
-        #self.assertEqual(len(result), 2)
+        # query = "SELECT * FROM my_table"
+        # self.cursor.execute(query)
+        # result = self.cursor.fetchall()
+        # self.assertEqual(len(result), 2)
         pass
