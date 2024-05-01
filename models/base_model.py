@@ -6,6 +6,7 @@ from datetime import datetime
 
 time = "%Y-%m-%dT%H:%M:%S.%f"
 
+
 class BaseModel:
     """A base class for all hbnb models"""
     def __init__(self, *args, **kwargs):
