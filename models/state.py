@@ -6,10 +6,10 @@ from models.base_model import BaseModel, Base
 from models.city import City
 import models
 
-
 class State(BaseModel, Base):
     """ The state class, contains state name """
-    if models.storage_type == "db":
+    from models.__init__ import storage_type
+    if storage_type == "db":
         __tablename__ = 'states'
         name = Column(String(128), nullable=False)
         cities = relationship("City", cascade="all, delete", backref="state")
