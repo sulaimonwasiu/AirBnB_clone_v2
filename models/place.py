@@ -5,6 +5,7 @@ from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
 import models
 
+
 class Place(BaseModel, Base):
     """Representation of a place"""
     if models.storage_type == 'db':
@@ -31,3 +32,7 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
         amenity_ids = []
+
+    def __init__(self, *args, **kwargs):
+        """initializes Place"""
+        super().__init__(*args, **kwargs)
