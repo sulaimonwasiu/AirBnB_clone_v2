@@ -11,10 +11,9 @@ from sqlalchemy.orm import relationship
 class City(BaseModel, Base):
     """Representation of city """
     __tablename__ = 'cities'
-    if models.storage_type == "db":
-        
-        state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
-        name = Column(String(128), nullable=False)
-    else:
+    state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
+    name = Column(String(128), nullable=False)
+    
+    if models.storage_type != 'db':
         state_id = ""
         name = ""
