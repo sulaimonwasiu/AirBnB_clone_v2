@@ -6,7 +6,6 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
 
 
-
 class DBStorage:
     """DBStorage class"""
     __engine = None
