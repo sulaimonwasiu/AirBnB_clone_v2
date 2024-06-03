@@ -12,12 +12,13 @@ from sqlalchemy.orm import relationship
 class State(BaseModel, Base):
     """Representation of state """
     __tablename__ = 'states'
-    name = Column(String(128), nullable=False)
     if models.storage_type == "db":
-        cities = relationship("City",
-                              backref="state",
-                              cascade="all, delete, delete-orphan")
+        name = Column(String(128), nullable=False)
+        cities = relationship("City", backref="state")
     else:
+        name = ""
+
+    if models.storage_type != "db":
         @property
         def cities(self):
             """getter for list of city instances related to the state"""
