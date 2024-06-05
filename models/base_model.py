@@ -38,6 +38,7 @@ class BaseModel:
         """instantiation of new BaseModel Class"""
         self.id = str(uuid4())
         self.created_at = now()
+        self.updated_at = self.created_at
         if kwargs:
             for key, value in kwargs.items():
                 setattr(self, key, value)
