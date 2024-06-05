@@ -124,21 +124,21 @@ class HBNBCommand(cmd.Cmd):
         if not error:
             print('[', end='')
             fs_o = FS.all()
-            l = 0
+            lv = 0
             if arg:
                 for v in fs_o.values():
                     if type(v).__name__ == CNC[arg[0]].__name__:
-                        l += 1
+                        lv += 1
                 c = 0
                 for v in fs_o.values():
                     if type(v).__name__ == CNC[arg[0]].__name__:
                         c += 1
-                        print(v, end=(', ' if c < l else ''))
+                        print(v, end=(', ' if c < lv else ''))
             else:
-                l = len(fs_o)
+                lv = len(fs_o)
                 c = 0
                 for v in fs_o.values():
-                    print(v, end=(', ' if c < l else ''))
+                    print(v, end=(', ' if c < lv else ''))
             print(']')
 
     def do_destroy(self, arg):
@@ -159,7 +159,7 @@ class HBNBCommand(cmd.Cmd):
                     return
             print(HBNBCommand.ERR[3])
 
-    def __rreplace(self, s, l):
+    def __rreplace(self, s, lv):
         for c in l:
             s = s.replace(c, '')
         return s
@@ -167,11 +167,11 @@ class HBNBCommand(cmd.Cmd):
     def __check_dict(self, arg):
         """checks if the arguments input has a dictionary"""
         if '{' and '}' in arg:
-            l = arg.split('{')[1]
-            l = l.split(', ')
-            l = list(s.split(':') for s in l)
+            lv = arg.split('{')[1]
+            lv = l.split(', ')
+            lv = list(s.split(':') for s in lv)
             d = {}
-            for subl in l:
+            for subl in lv:
                 k = subl[0].strip('"\' {}')
                 v = subl[1].strip('"\' {}')
                 d[k] = v
