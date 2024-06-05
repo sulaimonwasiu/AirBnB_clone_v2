@@ -16,6 +16,12 @@ from datetime import datetime
 strptime = datetime.strptime
 to_json = base_model.BaseModel.to_json
 
+def get_class_name(obj):
+    class_str = str(obj)
+    class_parts = class_str.split('.')
+    return class_parts[-1].replace("'>", "")
+
+
 
 class FileStorage:
     """handles long term storage of all class instances"""
@@ -41,8 +47,9 @@ class FileStorage:
         if cls is None:
             return FileStorage.__objects
         # match_class = eval(cls)()
+        cls = get_class_name(cls)
         for instance, obj in FileStorage.__objects.items():
-            if obj.__class__.__name__ == cls.__name__:
+            if obj.__class__.__name__ == cls:
                 filtered[instance] = FileStorage.__objects[instance]
         return filtered
 
