@@ -15,6 +15,7 @@ from models.user import User
 Database engine
 """
 
+
 def get_class_name(obj):
     class_str = obj
     class_parts = class_str.split('.')
