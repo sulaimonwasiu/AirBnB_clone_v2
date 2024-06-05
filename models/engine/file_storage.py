@@ -16,11 +16,11 @@ from datetime import datetime
 strptime = datetime.strptime
 to_json = base_model.BaseModel.to_json
 
+
 def get_class_name(obj):
     class_str = str(obj)
     class_parts = class_str.split('.')
     return class_parts[-1].replace("'>", "")
-
 
 
 class FileStorage:
