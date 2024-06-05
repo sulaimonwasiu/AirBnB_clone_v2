@@ -15,6 +15,11 @@ from models.user import User
 Database engine
 """
 
+def get_class_name(obj):
+    class_str = obj
+    class_parts = class_str.split('.')
+    return class_parts[-1].replace("'>", "")
+
 
 class DBStorage:
     __engine = None
@@ -52,7 +57,7 @@ class DBStorage:
         :return: dictonary with objects
         """
         query_data = {}
-
+        cls = get_class_name(str(cls))
         if cls is None:
             for valid_key, valid_class in DBStorage.CNC.items():
                 for instance in self.__session.query(valid_class):
@@ -60,6 +65,7 @@ class DBStorage:
                     query_data.update({key: instance})
             return query_data
         else:
+            # print(DBStorage.CNC[cls.__name__])
             for instance in self.__session.query(DBStorage.CNC[cls]):
                 key = type(instance).__name__ + "." + instance.id
                 query_data.update({key: instance})
