@@ -6,7 +6,6 @@ State Class from Models Module
 from os import getenv
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
-
 from models.base_model import BaseModel, Base
 
 
@@ -22,12 +21,10 @@ class State(BaseModel, Base):
     else:
         name = ''
 
-
     def __init__(self, *args, **kwargs):
         """instantiates a new state"""
         super().__init__(self, *args, **kwargs)
 
-    
     @property
     def cities(self):
         from models import storage
