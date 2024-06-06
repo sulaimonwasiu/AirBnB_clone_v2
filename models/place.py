@@ -3,6 +3,7 @@
 Place Class from Models Module
 """
 
+import models
 from os import getenv
 from sqlalchemy import Column, Table, Integer, Float, String, ForeignKey
 from sqlalchemy.orm import relationship
@@ -53,8 +54,30 @@ class Place(BaseModel, Base):
         price_by_night = 0
         latitude = 0.0
         longitude = 0.0
-        amenity_ids = ['', '']
+        amenity_ids = []
 
     def __init__(self, *args, **kwargs):
         """instantiates a new place"""
         super().__init__(self, *args, **kwargs)
+
+    if getenv("HBNB_TYPE_STORAGE") != "db":
+        @property
+        def amenities(self):
+            """getter attribute returns the list of Amenity instances"""
+            from models.amenity import Amenity
+            amenity_list = []
+            for amenity_id in self.amenity_ids:
+                amenity = models.storage.get(Amenity, amenity_id)
+                if amenity:
+                    amenity_list.append(amenity)
+            return amenity_list
+
+        @amenities.setter
+        def amenities(self, obj):
+            """setter for amenities that handles append method for adding Amenity"""
+            from models.amenity import Amenity
+            if isinstance(obj, Amenity):
+                self.amenity_ids.append(obj.id)
+            else:
+                pass
+
