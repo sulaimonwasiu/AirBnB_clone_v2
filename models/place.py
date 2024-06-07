@@ -73,7 +73,7 @@ class Place(BaseModel, Base):
             return self.amenities
 
         def set_amenities(self, obj):
-            """setter for amenities that handles append method for 
+            """setter for amenities that handles append method for
             adding Amenity
             """
             from models.amenity import Amenity
