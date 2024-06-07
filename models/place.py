@@ -55,29 +55,31 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
         amenity_ids = []
+        amenities = []
 
     def __init__(self, *args, **kwargs):
         """instantiates a new place"""
         super().__init__(self, *args, **kwargs)
 
     if getenv("HBNB_TYPE_STORAGE") != "db":
-        @property
-        def amenities(self):
+
+        def get_amenities(self):
             """getter attribute returns the list of Amenity instances"""
             from models.amenity import Amenity
-            amenity_list = []
+            instances = []
             for amenity_id in self.amenity_ids:
-                amenity = models.storage.get(Amenity, amenity_id)
-                if amenity:
-                    amenity_list.append(amenity)
-            return amenity_list
+                instances.append(models.storage.get(Amenity, amenity_id))
+            self.amenities = instances
+            return self.amenities
 
-        @amenities.setter
-        def amenities(self, obj):
-            """setter for amenities that handles append method for adding Amenity"""
+        def set_amenities(self, obj):
+            """setter for amenities that handles append method for 
+            adding Amenity
+            """
             from models.amenity import Amenity
             if isinstance(obj, Amenity):
-                self.amenity_ids.append(obj.id)
+                if obj.id not in self.amenity_ids:
+                    self.amenity_ids.append(obj.id)
+                    self.amenities.append(obj)
             else:
                 pass
-
