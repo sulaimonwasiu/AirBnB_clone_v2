@@ -40,6 +40,6 @@ place_2.amenities.append(amenity_3)
 # place_2.save()
 
 storage.save()
-print(place_1.amenities)
-print(place_2.amenities)
+# print(place_1.amenities)
+# print(place_2.amenities)
 print("OK")
