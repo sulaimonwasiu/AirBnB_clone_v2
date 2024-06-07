@@ -70,12 +70,17 @@ class Place(BaseModel, Base):
             return amenity_objs
 
         @amenities.setter
-        def amenities(self, amenity):
+        def amenities(self, obj):
             """
             ammenities setter
             :return:
             """
-            self.amenity_ids.append(amenity.id)
+            from models.amenity import Amenity
+            if isinstance(obj, Amenity):
+                if obj.id not in self.amenity_ids:
+                    self.amenity_ids.append(obj.id)
+            else:
+                pass
 
         @property
         def reviews(self):
